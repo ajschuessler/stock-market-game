@@ -60,8 +60,13 @@ var userBuysStock = function(tickerSelected, sharesPurchased) {
 		userPortfolio[tickerSelected].shares += Number(sharesPurchased);
 		userPortfolio[tickerSelected].marketValue = userPortfolio[tickerSelected].shares * stocks[tickerSelected].price;
 	}
+}
 
-	
+var userSellsStock = function(tickerSelected, sharesSold) {
+	userPortfolio.cash.marketValue += (userPortfolio[tickerSelected].price * sharesSold);
+
+	userPortfolio[tickerSelected].shares -= Number(sharesSold);
+	userPortfolio[tickerSelected].marketValue = userPortfolio[tickerSelected].shares * stocks[tickerSelected].price;
 }
 
 

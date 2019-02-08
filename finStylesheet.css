@@ -1,5 +1,16 @@
+table {
+	border: 2px solid black;
+	margin-top: 10px;
+}
+
 table, th, td {
 	text-align: left;
+	
+}
+
+th, td {
+	margin-right: 500px;
+
 }
 
 .portfolioTotal {

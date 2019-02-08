@@ -41,6 +41,7 @@ $(document).ready(function(){
 	    for (stock in stocks) {
 
 	    	var $tableStockRow = $('<tr></tr>');
+	    	$tableStockRow.addClass(stocks[stock].ticker);
 	    	$tableStockRow.appendTo($stockList);
 
 	    	var $stockName = $('<td></td>');
@@ -61,12 +62,21 @@ $(document).ready(function(){
 
 	        var $buy = $('<button></button');
 	        $buy.addClass('buy');
-	        $buy.attr('id', stocks[stock].ticker);
 	        $buy.text('Buy');
 	        $buy.appendTo($tableStockRow);
 
+	    }
 
-
+	    var buyButtons = document.getElementsByClassName('buy');
+	
+	    for (var i = 0; i < buyButtons.length; i++) {
+		    buyButtons[i].onclick = function() {
+			    var clickedElementParentClass = window.event.srcElement.parentElement.className;
+			    var userSharesPurchased = document.getElementById(clickedElementParentClass + 'sharesPurchased').value;
+			    userBuysStock(clickedElementParentClass, userSharesPurchased);
+			    populatePortfolio();
+			    populateTotalPortfolioValue();
+		    }
 	    }
 	}
 
@@ -95,7 +105,7 @@ $(document).ready(function(){
 	    $assetNameHeader.appendTo($tableHeaderRow);
 
 	    var $sharesHeader = $('<th></th>');
-	    $sharesHeader.text('# Shares');
+	    $sharesHeader.text('Shares Owned');
 	    $sharesHeader.appendTo($tableHeaderRow);
 
 	    var $stockPriceHeader = $('<th></th>');
@@ -106,6 +116,10 @@ $(document).ready(function(){
 	    $marketValueHeader.text('Market Value');
 	    $marketValueHeader.appendTo($tableHeaderRow);
 
+	    var $shareToSellHeader = $('<th></th>');
+	    $shareToSellHeader.text('# Shares');
+	    $shareToSellHeader.appendTo($tableHeaderRow);
+
 	    var $sellHeader = $('<th></th');
 	    $sellHeader.text('Action');
 	    $sellHeader.appendTo($tableHeaderRow);
@@ -115,6 +129,7 @@ $(document).ready(function(){
     	for (asset in userPortfolio) {
     		
     		var $tablePortfolioRow = $('<tr></tr>');
+    		$tablePortfolioRow.addClass(userPortfolio[asset].asset);
 	    	$tablePortfolioRow.appendTo($userPortfolio);
 
     		var $asset = $('<td></td');
@@ -133,22 +148,32 @@ $(document).ready(function(){
     		$marketValue.text(userPortfolio[asset].marketValue);
     		$marketValue.appendTo($tablePortfolioRow);
 
+    		var $sharesToSell = $('<input type="number">');
+    		$sharesToSell.attr('id', userPortfolio[asset].asset + 'sharesSold')
+	        $sharesToSell.appendTo($tablePortfolioRow);
+
     		var $sell = $('<button></button');
+    		$sell.addClass('sell');
 	        $sell.text('Sell');
 	        $sell.appendTo($tablePortfolioRow);
 
     	}
 
-    	var buyButtons = document.getElementsByClassName('buy');
-	
-	    for (var i = 0; i < buyButtons.length; i++) {
-		    buyButtons[i].onclick = function() {
-			    var clickedId = window.event.srcElement.id;
-			    var userSharesPurchased = document.getElementById(clickedId + 'sharesPurchased').value;
-			    userBuysStock(clickedId, userSharesPurchased);
-			    populatePortfolio();
-		    }
+    	
+
+	    var sellButtons = document.getElementsByClassName('sell');
+
+	    for (var i = 0; i < sellButtons.length; i++) {
+	        sellButtons[i].onclick = function() {
+	    	    var clickedElementParentClass = window.event.srcElement.parentElement.className;
+	    	    var sharesSold = document.getElementById(clickedElementParentClass + 'sharesSold').value;
+	    	    userSellsStock(clickedElementParentClass, sharesSold);
+	    	    populatePortfolio();
+	    	    populateTotalPortfolioValue();
+	        }	
 	    }
+
+	    
     }
     
     //default home load
@@ -177,18 +202,14 @@ $(document).ready(function(){
 		populateTotalPortfolioValue();
     }
 
-    var updatePricingInterval = setInterval(updatePricingIntervalSteps, 3000);
+    
 	
 
 
 	var updatePricingButton = document.getElementById("updatePricngButton");
 	
 	updatePricingButton.onclick = function() {
-		changePrices();
-		populateStockList();
-		populatePortfolio();
-		populateTotalPortfolioValue();
-
+		var updatePricingInterval = setInterval(updatePricingIntervalSteps, 3000);
 	}
 
 

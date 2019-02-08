@@ -170,7 +170,14 @@ $(document).ready(function(){
     //user interation
 
 	
+    var updatePricingIntervalSteps = function() {
+    	changePrices();
+		populateStockList();
+		populatePortfolio();
+		populateTotalPortfolioValue();
+    }
 
+    var updatePricingInterval = setInterval(updatePricingIntervalSteps, 3000);
 	
 
 

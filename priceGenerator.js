@@ -37,8 +37,8 @@ var totalPortfolioValue = function() {
 }
 
 var changePrices = function() {
-	var priceFactor = Math.random() + Math.random();
 	for (stock in stocks) {
+		var priceFactor = Math.random() + Math.random();
 		stocks[stock].price = Math.floor((stocks[stock].price + priceFactor));
 	}
 	for (asset in userPortfolio) {
@@ -48,6 +48,8 @@ var changePrices = function() {
 		}
 	}
 }
+
+
 
 var userBuysStock = function(tickerSelected, sharesPurchased) {
 	userPortfolio.cash.marketValue -= (stocks[tickerSelected].price * sharesPurchased);

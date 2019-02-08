@@ -1,18 +1,24 @@
+body {
+	text-align: center;
+}
+
 table {
+	margin-left: 30%;
+	margin-right: 30%;
+	width: 40%;
 	border: 2px solid black;
 	margin-top: 10px;
-}
-
-table, th, td {
 	text-align: left;
-	
-}
-
-th, td {
-	margin-right: 500px;
-
 }
 
 .portfolioTotal {
 	margin-top: 100px;
+}
+
+.totalTable {
+	background-color: lightgreen;
+}
+
+#totalPortfolioValue {
+	text-align: right;
 }

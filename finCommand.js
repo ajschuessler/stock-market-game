@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    // stock market
+    // Stock Market Section
 
 	var $stockList = $('.stockList');
 
@@ -53,7 +53,7 @@ $(document).ready(function(){
 	        $stockTicker.appendTo($tableStockRow);
 
 	        var $stockPrice = $('<td></td>');
-	    	$stockPrice.text(stocks[stock].price);
+	    	$stockPrice.text('$' + stocks[stock].price.toFixed(2));
 	        $stockPrice.appendTo($tableStockRow);
 
 	        var $shareCount = $('<input type="number">');
@@ -81,14 +81,8 @@ $(document).ready(function(){
 	}
 
 
-    // default home load
-    populateStockList();
 
-
-
-
-
-	// portfolio
+	// Your Portfolio Section
 
     var $userPortfolio = $('.userPortfolio')
 
@@ -141,11 +135,17 @@ $(document).ready(function(){
     		$sharesOwned.appendTo($tablePortfolioRow);
 
     		var $stockPrice = $('<td></td');
-    		$stockPrice.text(userPortfolio[asset].price);
-    		$stockPrice.appendTo($tablePortfolioRow);
+    		if (asset !== 'cash') {
+    		    $stockPrice.text('$' + userPortfolio[asset].price.toFixed(2));
+    		    $stockPrice.appendTo($tablePortfolioRow);	
+    		} else {
+    			$stockPrice.text('-');
+    		    $stockPrice.appendTo($tablePortfolioRow);	
+    		}
+    		
 
     		var $marketValue = $('<td></td');
-    		$marketValue.text(userPortfolio[asset].marketValue);
+    		$marketValue.text('$' + userPortfolio[asset].marketValue.toFixed(2));
     		$marketValue.appendTo($tablePortfolioRow);
 
     		var $sharesToSell = $('<input type="number">');
@@ -176,24 +176,21 @@ $(document).ready(function(){
 	    
     }
     
-    //default home load
-    populatePortfolio();
-
-
+    // Total Portfolio Value Section
     
     var populateTotalPortfolioValue = function() {
         $totalPortfolioValue = $('#totalPortfolioValue');
-        $totalPortfolioValue.text(totalPortfolioValue());	
+        $totalPortfolioValue.text('$' + totalPortfolioValue().toFixed(2));	
     }
-
-    populateTotalPortfolioValue();
     
+    // default home page load
+        
+    populateStockList();
+    populatePortfolio();
+    populateTotalPortfolioValue();
 
 
-
-
-    //user interation
-
+    // Begin Live Pricing Feature
 	
     var updatePricingIntervalSteps = function() {
     	changePrices();
@@ -202,25 +199,11 @@ $(document).ready(function(){
 		populateTotalPortfolioValue();
     }
 
-    
-	
-
-
 	var updatePricingButton = document.getElementById("updatePricngButton");
 	
 	updatePricingButton.onclick = function() {
 		var updatePricingInterval = setInterval(updatePricingIntervalSteps, 3000);
 	}
-
-
-	
-
-
-
-	
-
-
-
 
 
 

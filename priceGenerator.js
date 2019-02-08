@@ -39,7 +39,7 @@ var totalPortfolioValue = function() {
 var changePrices = function() {
 	for (stock in stocks) {
 		var priceFactor = Math.random() + Math.random();
-		stocks[stock].price = Math.floor((stocks[stock].price + priceFactor));
+		stocks[stock].price = stocks[stock].price + priceFactor;
 	}
 	for (asset in userPortfolio) {
 		if (asset !== 'cash') {

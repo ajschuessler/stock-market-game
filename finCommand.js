@@ -131,8 +131,13 @@ $(document).ready(function(){
     		$asset.appendTo($tablePortfolioRow);
 
     		var $sharesOwned = $('<td></td');
-    		$sharesOwned.text(userPortfolio[asset].shares);
-    		$sharesOwned.appendTo($tablePortfolioRow);
+    		if (asset !== 'cash') {
+    		    $sharesOwned.text(userPortfolio[asset].shares);
+    		} else {
+    			$sharesOwned.text('-');
+    		}
+    		$sharesOwned.appendTo($tablePortfolioRow);	
+    		
 
     		var $stockPrice = $('<td></td');
     		if (asset !== 'cash') {

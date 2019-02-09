@@ -1,5 +1,6 @@
 body {
 	text-align: center;
+	background-color: rgb(255, 252, 237);
 }
 
 table {
@@ -11,6 +12,13 @@ table {
 	text-align: left;
 }
 
+button:hover {
+	background-color: lightblue;
+}
+
+th {
+	text-decoration: underline;
+}
 .portfolioTotal {
 	margin-top: 100px;
 }
